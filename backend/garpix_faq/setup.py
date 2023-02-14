@@ -30,8 +30,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'Django >= 3.1, < 4',
-        'djangorestframework >= 3.8',
+        'garpixcms >= 1.7.0',
     ],
 )
 
