@@ -1,83 +1,74 @@
-# GarpixCMS Empty Template
+# Garpix User
 
-Cookiecutter template for GarpixCMS == 1.0.0.
+Auth module for Django/DRF projects. Part of GarpixCMS.
 
-## Makefile install
+Used packages: 
 
-1. Install Docker and docker-compose.
-   
-For Debian, Ubuntu:
+* [django rest framework](https://www.django-rest-framework.org/api-guide/authentication/)
+* [social-auth-app-django](https://github.com/python-social-auth/social-app-django)
+* [django-rest-framework-social-oauth2](https://github.com/RealmTeam/django-rest-framework-social-oauth2)
+* etc; see setup.py
 
-```
-su
-apt update; apt upgrade -y; apt install -y curl; curl -sSL https://get.docker.com/ | sh; curl -L https://github.com/docker/compose/releases/download/1.28.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
-```
+## Quickstart
 
-Don't forget press CTRL+D to exit from super user account.
+Install with pip:
 
-2. Apply environment variables:
-
-```
-cp example.env .env
+```bash
+pip install garpix_faq
 ```
 
-3. Install python dependencies
+Add the `garpix_faq` to your `INSTALLED_APPS`:
 
-```
-make venv
-```
+```python
+# settings.py
 
-4. Run the project
-```
-make install
-```
-
-## Install
-
-1. Install Docker and docker-compose.
-   
-For Debian, Ubuntu:
-
-```
-su
-apt update; apt upgrade -y; apt install -y curl; curl -sSL https://get.docker.com/ | sh; curl -L https://github.com/docker/compose/releases/download/1.28.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
+# ...
+INSTALLED_APPS = [
+    # ...
+    'garpix_faq',
+]
 ```
 
-Don't forget press CTRL+D to exit from super user account.
+and to migration modules:
 
-2. Apply environment variables:
+```python
+# settings.py
 
-```
-cp example.env .env
-```
-
-3. Change a random string for `SECRET_KEY` and `POSTGRES_PASSWORD` in `.env`.
-
-4. Install dependencies:
-
-```
-pipenv install
-pipenv shell
+# ...
+MIGRATION_MODULES = {
+    'garpix_faq': 'app.migrations.garpix_faq',
+}
 ```
 
-5. Run make command to install pre-commit hook:
+Add to `urls.py`:
 
-```
-make precommit
-```
-6. Up docker-compose, migrate database and create super user:
+```python
 
-```
-docker-compose up -d
-python3 backend/manage.py makemigrations
-python3 backend/manage.py migrate
-python3 backend/manage.py createsuperuser
-```
+# ...
+urlpatterns = [
+    # ...
+    # garpix_user
+    path('', include(('garpix_faq.urls', 'faq'), namespace='garpix_faq')),
 
-7. Run the server:
-
-```
-python3 backend/manage.py runserver
+]
 ```
 
-8. Enjoy!
+Enjoy!
+
+See `garpix_faq/tests.py` for examples.
+
+# Changelog
+
+See [CHANGELOG.md](backend/garpix_faq/CHANGELOG.md).
+
+# Contributing
+
+See [CONTRIBUTING.md](backend/garpix_faq/CONTRIBUTING.md).
+
+# License
+
+[MIT](LICENSE)
+
+---
+
+Developed by Garpix / [https://garpix.com](https://garpix.com)
