@@ -47,7 +47,7 @@ Add to `urls.py`:
 # ...
 urlpatterns = [
     # ...
-    # garpix_user
+    # garpix_faq
     path('', include(('garpix_faq.urls', 'faq'), namespace='garpix_faq')),
 
 ]

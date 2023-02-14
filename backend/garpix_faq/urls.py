@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.urls import path, include
 from rest_framework import routers
 from . import views
 
@@ -9,4 +10,6 @@ API_URL = getattr(settings, 'API_URL', 'api')
 router = routers.DefaultRouter()
 router.register(r'faq', views.FaqInfoViewSet, basename='faq')
 
-urlpatterns = router.urls
+urlpatterns = [
+    path(f'{API_URL}/', include(router.urls)),
+]
